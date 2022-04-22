@@ -26,6 +26,7 @@ void darkenandlightenimage ();
 void rotateImage();
 void DetectEdgesImage();
 void enlargeImage();
+void shrinkimage ();
 void MirrorImage();
 void shuffleImage();
 void blurImage();
