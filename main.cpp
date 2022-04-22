@@ -21,9 +21,12 @@ void saveImage();
 void BlackAndWhite();
 void invertImage();
 void mergeimage ();
+void flipImage();
 void darkenandlightenimage ();
 void rotateImage();
+void DetectEdgesImage();
 void enlargeImage();
+void MirrorImage();
 void shuffleImage();
 void blurImage();
 
@@ -63,7 +66,10 @@ int main()
         }
         if(choice=='4')
         { 
-            
+            loadImage();
+            flipImage();
+            saveImage();
+            continue;
 
         }
         if (choice=='5')
@@ -82,7 +88,10 @@ int main()
         }
         if (choice=='7')
         {
-
+            loadImage();
+        DetectEdgesImage()
+            saveImage();
+            continue;
         }
         if(choice=='8')
         {
@@ -100,12 +109,15 @@ int main()
         }
         if(choice=='a')
         {
-
+            loadImage();
+            MirrorImage();
+            saveImage();
         }
         if(choice=='b')
         {
             loadImage();
             shuffleImage();
+            saveImage();
             continue;
         }
         if(choice=='c')
@@ -187,6 +199,31 @@ void mergeimage (){
         }
     }
 }
+void flipImage()
+{
+ int choice ;
+ cout<<"1- vertically \n2- horizontally\n ";
+ cin>>choice;
+if(choice==1){
+ for(int i=0 ; i<SIZE/2 ; i++){
+    for(int j=0 ; j<SIZE ; j++){
+            for(int k = 0 ; k<RGB ; k++){
+      swap(image[i][j] , image[255-i][j]);
+    }
+  }
+ }
+}
+if(choice==2){
+ for(int i=0 ; i<SIZE ; i++){
+    for(int j=0 ; j<SIZE/2 ; j++){
+            for(int k = 0 ; k<RGB ; k++){
+       swap(image[i][j] , image[i][255-j]);
+    }
+  }
+ }
+}
+else cout<<"wrong choice ";
+}
 void darkenandlightenimage (){
     char choose6;
     cout<<"Do you want to (d)arken or (l)ighten :";
@@ -255,6 +292,21 @@ void rotateImage()
                 image[j][SIZE-1-i]=temp;
             }
         }
+    }
+}
+void DetectEdgesImage()
+{
+  for (int i= 0 ; i< SIZE ; i++){
+    for(int j = 0; j<SIZE ; j++){
+            for(int k = 0 ; k<RGB ; k++){
+        if(image[i][j][k]-image[i][j+1][k]>10 || image[i][j][k]-image[i+1][j][k]>10){
+           image[i][j][k]=0;
+        }
+        else
+        {
+          image[i][j][k]=255;
+        }
+    }
     }
 }
 void enlargeImage ()
@@ -386,6 +438,51 @@ void shrinkimage (){
             }
         }
     }
+}
+void MirrorImage(){
+int choice;
+cout<<" 1- right \n 2- left \n 3- upper \n 4- lower"<<endl;
+cin>>choice;
+if(choice==1)
+{
+  for(int i=0 ; i<SIZE ; i++){
+    for(int j=0 ; j<SIZE/2 ; j++){
+            for(int k=0 ; k<RGB ; k++){
+        image[i][j][k] = image[i][255-j][k];
+    }
+    }
+  }
+}
+if(choice==2)
+{
+  for(int i=0 ; i<SIZE ; i++){
+    for(int j=0 ; j<SIZE/2 ; j++){
+            for(int k=0 ; k<RGB ; k++){
+        image[i][255-j][k] = image[i][j][k];
+}
+}
+}
+}
+if(choice==3)
+{
+      for(int i=0 ; i<SIZE/2 ; i++){
+    for(int j=0 ; j<SIZE ; j++){
+            for(int k = 0 ; k<RGB ; k++){
+        image[255-i][j][k] = image[i][j][k];
+}
+}
+}
+}
+if(choice==4)
+{
+ for(int i=0 ; i<SIZE/2 ; i++){
+    for(int j=0 ; j<SIZE ; j++){
+            for(int k = 0 ; k<RGB ; k++){
+        image[i][j][k] = image[255-i][j][k];
+}
+}
+}
+}
 }
 void shuffleImage ()
 {
